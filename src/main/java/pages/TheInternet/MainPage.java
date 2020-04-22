@@ -22,4 +22,10 @@ public class MainPage {
         driver.findElement(By.linkText("Dropdown")).click();
         return new DropDownPage(this.driver);
     }
+
+    public HoverPage goToHoverPagePage(){
+
+        driver.findElement(By.linkText("Hovers")).click();
+        return new HoverPage(this.driver);
+    }
 }
