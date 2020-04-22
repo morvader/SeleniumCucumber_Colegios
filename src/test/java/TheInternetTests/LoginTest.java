@@ -1,8 +1,10 @@
 package TheInternetTests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
 import pages.TheInternet.LoginPage;
 import pages.TheInternet.MainPage;
@@ -20,11 +22,14 @@ public class LoginTest {
     @BeforeClass
     public static void afterClass(){
         System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
+        System.setProperty("webdriver.gecko.driver", "./drivers/geckodriver.exe");
     }
 
     @BeforeMethod
     public void setUp(){
         driver = new ChromeDriver();
+
+        //driver.manage().window().setSize(new Dimension(300,600));
 
         driver.get("https://the-internet.herokuapp.com/");
 
