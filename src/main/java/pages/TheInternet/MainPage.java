@@ -15,6 +15,11 @@ public class MainPage {
 
         driver.findElement(By.linkText("Form Authentication")).click();
         return new LoginPage(this.driver);
+    }
 
+    public DropDownPage goToDropDownPage(){
+
+        driver.findElement(By.linkText("Dropdown")).click();
+        return new DropDownPage(this.driver);
     }
 }
