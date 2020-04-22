@@ -3,41 +3,74 @@ package TheInternetTests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+import pages.TheInternet.LoginPage;
+import pages.TheInternet.MainPage;
+import pages.TheInternet.SecurePage;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class LoginTest {
 
-    @Test
-    public void loginIncorrecto_MensajeError(){
+    MainPage mainPage;
+    LoginPage loginPage;
+    WebDriver driver;
+
+    @BeforeClass
+    public static void afterClass(){
         System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
+    }
 
-        String fakeUser = "fran";
-        String fakePass = "fakePass";
-
-        String mensajeEsperado = "Your username is invalid!";
+    @BeforeMethod
+    public void setUp(){
+        driver = new ChromeDriver();
 
         driver.get("https://the-internet.herokuapp.com/");
 
-        driver.findElement(By.linkText("Form Authentication")).click();
+        mainPage = new MainPage(driver);
+        loginPage = mainPage.goToLoginPage();
+    }
 
-        driver.findElement(By.id("username")).sendKeys(fakeUser);
+    @AfterMethod
+    public void tearDown(){
+        driver.quit();
+    }
 
-        driver.findElement(By.name("password")).sendKeys(fakePass);
+    @Test
+    public void loginIncorrecto_MensajeError(){
+        //Arrange
+        String fakeUser = "fran";
+        String fakePass = "fakePass";
+        String mensajeEsperado = "Your username is invalid!";
 
-        driver.findElement(By.xpath("//*[@id=\"login\"]/button")).click();
+        //Act
+        loginPage.loginIncorrecto(fakeUser,fakePass);
 
-
-        final String texto = driver.findElement(By.id("flash")).getText();
+        //Assert
+        final String texto = loginPage.getTexto();
 
         assertTrue(texto.startsWith(mensajeEsperado),"El mensaje mostrado no es correcto");
 
-        assertTrue(driver.getCurrentUrl().endsWith("error"),"La url no es correcta");
+        assertTrue(loginPage.driver.getCurrentUrl().endsWith("login"),"La url no es correcta");
 
-        driver.quit();
+    }
 
+    @Test
+    public void loginCorrecto_AccedoAreaSegura(){
+        //Arrange
+        String fakeUser = "tomsmith";
+        String fakePass = "SuperSecretPassword!";
+        String mensajeEsperado = "You logged into a secure area!";
+
+        //Act
+        final SecurePage securePage = loginPage.loginCorrecto(fakeUser, fakePass);
+
+        //Assert
+        final String texto = securePage.getTexto();
+
+        assertTrue(texto.startsWith(mensajeEsperado),"El mensaje mostrado no es correcto");
+
+        assertTrue(loginPage.driver.getCurrentUrl().endsWith("secure"),"La url no es correcta");
     }
 }
