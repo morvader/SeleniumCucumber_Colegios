@@ -13,6 +13,7 @@ import pages.TheInternet.MainPage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 public class BaseTest {
     public WebDriver driver;
@@ -32,6 +33,7 @@ public class BaseTest {
     public void tearDown(ITestResult result) throws IOException {
         if(result.getStatus() == ITestResult.FAILURE)
             takeScreenshot(driver, "./screenshots", result.getName());
+
         driver.quit();
     }
 
