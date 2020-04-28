@@ -23,6 +23,11 @@ public class MainPage {
         return new DropDownPage(this.driver);
     }
 
+    public DynamicControlPage goToDynamicControlPage() {
+        driver.findElement(By.linkText("Dynamic Controls")).click();
+        return new DynamicControlPage(driver);
+    }
+
     public HoverPage goToHoverPagePage(){
 
         driver.findElement(By.linkText("Hovers")).click();
