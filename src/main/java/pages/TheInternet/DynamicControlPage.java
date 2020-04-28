@@ -1,7 +1,10 @@
 package pages.TheInternet;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DynamicControlPage {
     private WebDriver driver;
@@ -14,5 +17,23 @@ public class DynamicControlPage {
         this.driver = driver;
     }
 
+    public void clickButton() {
+        driver.findElement(btn).click();
+    }
 
+    public String getMensaje(){
+        WebDriverWait wait = new WebDriverWait(this.driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(mensaje));
+
+        return driver.findElement(mensaje).getText();
+    }
+
+    public boolean isCheckBoxPresent() {
+        try {
+            driver.findElement(checkbox);
+            return true;
+        } catch (NoSuchElementException noElement) {
+            return false;
+        }
+    }
 }
