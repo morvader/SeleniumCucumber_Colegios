@@ -41,7 +41,7 @@
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>${cucumber-java.version}</version>
-            <type>pom</type>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
