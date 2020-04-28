@@ -1,5 +1,6 @@
 package TheInternetTests;
 
+import Tests.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -13,23 +14,14 @@ import pages.TheInternet.SecurePage;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
     MainPage mainPage;
     LoginPage loginPage;
-    WebDriver driver;
-
-    @BeforeClass
-    public static void afterClass(){
-        System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
-        System.setProperty("webdriver.gecko.driver", "./drivers/geckodriver.exe");
-    }
 
     @BeforeMethod
     public void setUp(){
-        driver = new ChromeDriver();
-
-        //driver.manage().window().setSize(new Dimension(300,600));
+        super.setUp();
 
         driver.get("https://the-internet.herokuapp.com/");
 
@@ -37,10 +29,6 @@ public class LoginTest {
         loginPage = mainPage.goToLoginPage();
     }
 
-    @AfterMethod
-    public void tearDown(){
-        driver.quit();
-    }
 
     @Test
     public void loginIncorrecto_MensajeError(){

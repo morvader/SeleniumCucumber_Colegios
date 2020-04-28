@@ -1,5 +1,6 @@
 package TheInternetTests;
 
+import Tests.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -12,31 +13,19 @@ import pages.TheInternet.MainPage;
 
 import static org.testng.Assert.assertTrue;
 
-public class HoverTest {
+public class HoverTest extends BaseTest {
 
-    WebDriver driver;
     MainPage mainPage;
     HoverPage hoverPage;
 
-    @BeforeClass
-    public static void afterClass(){
-        System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
-        System.setProperty("webdriver.gecko.driver", "./drivers/geckodriver.exe");
-    }
-
     @BeforeMethod
     public void setUp(){
-        driver = new ChromeDriver();
 
+        super.setUp();
         driver.get("https://the-internet.herokuapp.com/");
 
         mainPage = new MainPage(driver);
         hoverPage = mainPage.goToHoverPagePage();
-    }
-
-    @AfterMethod
-    public void tearDown(){
-        driver.quit();
     }
 
     @Test
