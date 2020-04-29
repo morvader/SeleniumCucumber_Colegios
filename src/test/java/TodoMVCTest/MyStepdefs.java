@@ -57,5 +57,9 @@ public class MyStepdefs {
 
     }
 
-
+    @Then("^la lista esta vacia$")
+    public void laListaEstaVacia() {
+        int nElementosLista = todoMVCPage.getNumberOfElements();
+        assertEquals(nElementosLista,0, "La lista no está vacía");
+    }
 }
