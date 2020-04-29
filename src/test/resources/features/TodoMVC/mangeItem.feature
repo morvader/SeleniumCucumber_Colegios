@@ -17,3 +17,9 @@ Feature: Gestionar elementos
     Then la lista tiene 2 elemento
     And la lista contiene el elemento "Primer elemento"
     And la lista contiene el elemento "Segundo elemento"
+
+  Scenario: Cuando completo un elemento aparece en la lista de completados
+    Given añado el elemento "Nuevo elemento" a lista
+    When marco el elemento 1 de la lista como completado
+    Then el elemento 1 de la lista queda marcado como completado
+    And en la lista de completados aparece el elemento "Nuevo elemento"
