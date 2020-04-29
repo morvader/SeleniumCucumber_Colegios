@@ -1,8 +1,11 @@
+@core
 Feature: Gestionar elementos
 
   Background: Entro en el sistema
     Given accedo a la web
 
+  @SmokeTest
+  @fast
   Scenario: Al entrar en la web la lista está vacía
     Then la lista esta vacia
 
